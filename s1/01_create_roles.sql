@@ -15,3 +15,4 @@ GRANT CONNECT ON DATABASE yogadb TO yoga_instructor;
 
 -- Проверка ролей
 \du
+<img width="664" height="137" alt="image" src="https://github.com/user-attachments/assets/ac3847bd-9d1c-49d5-aed8-3c1f475131e3" />
