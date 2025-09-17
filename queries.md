@@ -7,6 +7,7 @@
 
 ## Запрос 2 
 **Формулировка на естественном языке:** Найти имена клиентов и их тип абонемента.
+
 **Реляционная алгебра:**
 π_{Client.FirstName, Client.LastName, Membership.Type} 
    (Client ⋈_{Client.ClientID = Membership.ClientID} Membership)
