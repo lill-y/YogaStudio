@@ -313,6 +313,7 @@ FROM Class c
 CROSS JOIN Schedule s;
 ```
 <img width="265" height="258" alt="image" src="https://github.com/user-attachments/assets/ce82df99-599f-4e13-821a-f6ef2e033a4a" />
+
 ### 16.2. Создать матрицу всех инструкторов и студий для возможного распределения
 ```sql
 SELECT 
