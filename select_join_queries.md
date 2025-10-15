@@ -207,6 +207,7 @@ WHERE LastName LIKE 'S%';
 SELECT * FROM Class 
 WHERE Name LIKE '%Weekend%';
 ```
+<img width="674" height="74" alt="image" src="https://github.com/user-attachments/assets/3c572a67-7b0c-4a41-a52f-a5e42e5aacd1" />
 
 ## 12. Выбор уникальных элементов столбца
 
@@ -214,11 +215,13 @@ WHERE Name LIKE '%Weekend%';
 ```sql
 SELECT DISTINCT Role FROM Staff;
 ```
+<img width="107" height="92" alt="image" src="https://github.com/user-attachments/assets/92b22827-d8a1-4260-a264-51b9acfeb972" />
 
 ### 12.2. Получить уникальные типы членств
 ```sql
 SELECT DISTINCT Type FROM Membership;
 ```
+<img width="87" height="92" alt="image" src="https://github.com/user-attachments/assets/3a0c3cee-250d-44eb-b4c9-c09b2b60ef80" />
 
 ## 13. Выбор ограниченного количества возвращаемых строк
 
@@ -228,57 +231,122 @@ SELECT * FROM Payment
 ORDER BY Date DESC 
 LIMIT 2;
 ```
+<img width="439" height="91" alt="image" src="https://github.com/user-attachments/assets/77fc0764-92a9-4ada-a823-6c505d4bfc45" />
+
 ### 13.2. Получить самого опытного инструктора
 ```sql
 SELECT * FROM Instructor 
 ORDER BY ExperienceYears DESC 
 LIMIT 1;
 ```
+<img width="631" height="71" alt="image" src="https://github.com/user-attachments/assets/36469ce9-ff65-4083-9b67-b23464449194" />
 
 # JOIN запросы
 
 ## 14. Соединение INNER JOIN
 
-### 14.1. Классификация книг по цене
+### 14.1. Получить информацию о классах с именами инструкторов и названиями комнат
 ```sql
-
+SELECT 
+    c.ClassID,
+    c.Name AS ClassName,
+    s.FirstName,
+    s.LastName,
+    r.Name AS RoomName
+FROM Class c
+INNER JOIN Instructor i ON c.InstructorID = i.InstructorID
+INNER JOIN Staff s ON i.StaffID = s.StaffID
+INNER JOIN Room r ON c.RoomID = r.RoomID;
 ```
+<img width="575" height="110" alt="image" src="https://github.com/user-attachments/assets/5d75a007-caa9-4065-956f-93a77e7fbde8" />
 
-### 14.2. Классификация книг по цене
+### 14.2. Получить клиентов с их платежами и типами членств
 ```sql
-
+SELECT 
+    cl.FirstName,
+    cl.LastName,
+    m.Type AS MembershipType,
+    p.Amount,
+    p.Date
+FROM Client cl
+INNER JOIN Membership m ON cl.ClientID = m.ClientID
+INNER JOIN Payment p ON m.MembershipID = p.MembershipID;
 ```
+<img width="568" height="109" alt="image" src="https://github.com/user-attachments/assets/f87e98f6-02d8-4e6e-b919-7fb8e8d98ad5" />
 
 ## 15. Внешнее соединение LEFT и RIGHT OUTER JOIN
 
-### 15.1. Классификация книг по цене
+### 15.1. Получить всех клиентов и их отзывы (включая клиентов без отзывов)
 ```sql
-
+SELECT 
+    c.FirstName,
+    c.LastName,
+    r.Rating,
+    r.Comment
+FROM Client c
+LEFT OUTER JOIN Review r ON c.ClientID = r.ClientID;
 ```
+(тут специально добавила нового клиента для наглядности)
+<img width="483" height="124" alt="image" src="https://github.com/user-attachments/assets/a16c2152-741e-4b36-a57f-f43be3fe74ec" />
 
-### 15.2. Классификация книг по цене
+### 15.2. Получить всех инструкторов и их классы (включая инструкторов без классов)
 ```sql
-
+SELECT 
+    s.FirstName,
+    s.LastName,
+    i.Specialty,
+    c.Name AS ClassName
+FROM Instructor i
+LEFT OUTER JOIN Class c ON i.InstructorID = c.InstructorID
+INNER JOIN Staff s ON i.StaffID = s.StaffID;
 ```
+<img width="515" height="133" alt="image" src="https://github.com/user-attachments/assets/426bd376-8689-4395-8c12-2d219ab76c18" />
 
 ## 16. Перекрестное соединение CROSS JOIN
 
-### 16.1. Классификация книг по цене
+### 16.1. Создать все возможные комбинации типов классов и дней недели для планирования
 ```sql
-
+SELECT 
+    c.Name AS ClassType,
+    s.DayOfWeek
+FROM Class c
+CROSS JOIN Schedule s;
 ```
-
-### 16.2. Классификация книг по цене
+<img width="265" height="258" alt="image" src="https://github.com/user-attachments/assets/ce82df99-599f-4e13-821a-f6ef2e033a4a" />
+### 16.2. Создать матрицу всех инструкторов и студий для возможного распределения
 ```sql
-
+SELECT 
+    s.FirstName,
+    s.LastName,
+    y.Name AS StudioName
+FROM Instructor i
+CROSS JOIN YogaStudio y
+JOIN Staff s ON i.StaffID = s.StaffID;
 ```
-
+<img width="391" height="208" alt="image" src="https://github.com/user-attachments/assets/b5a9c6ad-9b40-45a0-b0cc-e9b7a615875d" />
 ## 17. Запросы на выборку из нескольких таблиц
 
-### 17.1. Классификация книг по цене
+### 17.1. Получить полное соответствие между клиентами и отзывами
 ```sql
-
+SELECT 
+    c.FirstName,
+    c.LastName,
+    r.Rating,
+    r.Comment
+FROM Client c
+FULL OUTER JOIN Review r ON c.ClientID = r.ClientID;
 ```
+<img width="483" height="130" alt="image" src="https://github.com/user-attachments/assets/bbf32c0a-fda5-4970-9fe1-76c1e8df7958" />
 
-### 17.2. Классификация книг по цене
+
+### 17.2. Получить все классы и все расписания (полное соответствие)
 ```sql
+SELECT 
+    c.Name AS ClassName,
+    s.DayOfWeek,
+    s.StartTime
+FROM Class c
+FULL OUTER JOIN Schedule s ON c.ScheduleID = s.ScheduleID;
+```
+<img width="384" height="117" alt="image" src="https://github.com/user-attachments/assets/009f7fcc-b453-4159-a61e-71237a8b446a" />
+
