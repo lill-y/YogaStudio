@@ -325,6 +325,7 @@ CROSS JOIN YogaStudio y
 JOIN Staff s ON i.StaffID = s.StaffID;
 ```
 <img width="391" height="208" alt="image" src="https://github.com/user-attachments/assets/b5a9c6ad-9b40-45a0-b0cc-e9b7a615875d" />
+
 ## 17. Запросы на выборку из нескольких таблиц
 
 ### 17.1. Получить полное соответствие между клиентами и отзывами
