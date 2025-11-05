@@ -275,6 +275,7 @@ WHERE 5 = ANY (
     WHERE r.ClientID = c.ClientID
 );
 ```
+<img width="678" height="139" alt="image" src="https://github.com/user-attachments/assets/75a9ba4d-5ecd-4c38-9762-8577cce0206d" />
 
 ### 7.2. Инструкторы с классами любой вместимости больше 15
 ```sql
@@ -286,6 +287,7 @@ WHERE 15 < ANY (
     WHERE c.InstructorID = i.InstructorID
 );
 ```
+<img width="637" height="101" alt="image" src="https://github.com/user-attachments/assets/767d49ce-63a2-49f2-b0e6-709278e9263f" />
 
 ### 7.3. Студии с клиентами любого возраста до 30 лет
 ```sql
@@ -297,6 +299,7 @@ WHERE 30 > ANY (
     WHERE c.YogaStudioID = ys.YogaStudioID
 );
 ```
+<img width="755" height="105" alt="image" src="https://github.com/user-attachments/assets/2e4d90ab-7c5c-49f2-a142-789f3da6dcb0" />
 
 ## 8. EXISTS
 
@@ -310,6 +313,7 @@ WHERE EXISTS (
     WHERE r.ClientID = c.ClientID
 );
 ```
+<img width="685" height="226" alt="image" src="https://github.com/user-attachments/assets/9832c2b4-a54c-4034-bc8f-e0606fe4b071" />
 
 ### 8.2. Инструкторы с классами в больших помещениях
 ```sql
@@ -323,19 +327,22 @@ WHERE EXISTS (
     AND r.Capacity > 20
 );
 ```
+<img width="533" height="90" alt="image" src="https://github.com/user-attachments/assets/3c4a47ec-5480-4164-8438-d3ad5676f52c" />
 
-### 8.3. Студии с платежами за последний месяц
+### 8.3. Студии с утренними классами
 ```sql
 SELECT *
 FROM YogaStudio ys
 WHERE EXISTS (
     SELECT 1
-    FROM Client c
-    JOIN Payment p ON c.ClientID = p.ClientID
-    WHERE c.YogaStudioID = ys.YogaStudioID
-    AND p.Date >= CURRENT_DATE - INTERVAL '1 month'
+    FROM Class c
+    JOIN Schedule s ON c.ScheduleID = s.ScheduleID
+    JOIN Room r ON c.RoomID = r.RoomID
+    WHERE r.YogaStudioID = ys.YogaStudioID
+    AND s.StartTime < '12:00:00'
 );
 ```
+<img width="757" height="112" alt="image" src="https://github.com/user-attachments/assets/a8d53c67-b6fe-4bdb-9f7d-0a26a83a0d9b" />
 
 ## 9. Сравнение по нескольким столбцам
 
@@ -349,19 +356,21 @@ WHERE (c1.FirstName, c1.LastName, c1.YogaStudioID) = (
     WHERE c2.ClientID = 1
 );
 ```
+<img width="681" height="76" alt="image" src="https://github.com/user-attachments/assets/ddd008b0-941e-447e-9ddb-7d8654fd7e92" />
 
-### 9.2. Найти дубликаты клиентов по имени и фамилии
+### 9.2. Найти инструкторов с одинаковой специализацией и опытом работы
 ```sql
 SELECT *
-FROM Client c1
+FROM Instructor i1
 WHERE EXISTS (
     SELECT 1
-    FROM Client c2
-    WHERE c2.FirstName = c1.FirstName
-    AND c2.LastName = c1.LastName
-    AND c2.ClientID != c1.ClientID
+    FROM Instructor i2
+    WHERE i2.Specialty = i1.Specialty
+    AND i2.ExperienceYears = i1.ExperienceYears
+    AND i2.InstructorID != i1.InstructorID
 );
 ```
+<img width="656" height="91" alt="image" src="https://github.com/user-attachments/assets/3810e7fd-c11c-44af-8f05-b25aba39e67c" />
 
 ### 9.3. Классы с такими же параметрами как у самого популярного
 ```sql
@@ -378,6 +387,7 @@ WHERE (c1.MaxCapacity, c1.RoomID) = (
     )
 );
 ```
+<img width="666" height="76" alt="image" src="https://github.com/user-attachments/assets/1f833328-fcd9-45e9-84b5-4b3194c51db9" />
 
 ## 10. Коррелированные подзапросы
 
@@ -389,6 +399,7 @@ SELECT
     (SELECT COUNT(*) FROM Review r WHERE r.ClientID = c.ClientID) AS review_count
 FROM Client c;
 ```
+<img width="328" height="290" alt="image" src="https://github.com/user-attachments/assets/e8c11150-8707-4cbe-8bd2-a438c7d1acd8" />
 
 ### 10.2. Средний рейтинг инструктора по отзывам на его классы
 ```sql
@@ -402,25 +413,29 @@ SELECT
 FROM Instructor i
 JOIN Staff s ON i.StaffID = s.StaffID;
 ```
+<img width="381" height="250" alt="image" src="https://github.com/user-attachments/assets/5e4ea560-f930-4237-984f-91de09d7fc57" />
 
-### 10.3. Клиенты с количеством платежей выше среднего по их студии
+### 10.3. Инструкторы с количеством классов больше среднего по их специализации
 ```sql
 SELECT 
-    c.FirstName,
-    c.LastName,
-    (SELECT COUNT(*) FROM Payment p WHERE p.ClientID = c.ClientID) AS payment_count
-FROM Client c
-WHERE (SELECT COUNT(*) FROM Payment p WHERE p.ClientID = c.ClientID) > (
-    SELECT AVG(payment_count)
+    s.FirstName,
+    s.LastName,
+    i.Specialty,
+    (SELECT COUNT(*) FROM Class c WHERE c.InstructorID = i.InstructorID) AS class_count
+FROM Instructor i
+JOIN Staff s ON i.StaffID = s.StaffID
+WHERE (SELECT COUNT(*) FROM Class c WHERE c.InstructorID = i.InstructorID) > (
+    SELECT AVG(class_count)
     FROM (
-        SELECT COUNT(*) AS payment_count
-        FROM Payment p2
-        JOIN Client c2 ON p2.ClientID = c2.ClientID
-        WHERE c2.YogaStudioID = c.YogaStudioID
-        GROUP BY p2.ClientID
-    ) studio_avg
+        SELECT COUNT(*) AS class_count
+        FROM Class c2
+        JOIN Instructor i2 ON c2.InstructorID = i2.InstructorID
+        WHERE i2.Specialty = i.Specialty
+        GROUP BY c2.InstructorID
+    ) specialty_avg
 );
 ```
+<img width="432" height="72" alt="image" src="https://github.com/user-attachments/assets/f9b3ca3a-109b-4eb4-bdc8-bd4fc0e2fdd1" />
 
 ### 10.4. Инструкторы с опытом выше среднего по их специализации
 ```sql
@@ -437,6 +452,7 @@ WHERE i.ExperienceYears > (
     WHERE i2.Specialty = i.Specialty
 );
 ```
+<img width="506" height="141" alt="image" src="https://github.com/user-attachments/assets/2efbe4d1-6731-4d4e-a00d-ee50d60ec3a6" />
 
 ### 10.5. Студии с количеством клиентов больше среднего по всем студиям
 ```sql
@@ -453,3 +469,4 @@ WHERE (SELECT COUNT(*) FROM Client c WHERE c.YogaStudioID = ys.YogaStudioID) > (
     ) avg_clients
 );
 ```
+<img width="310" height="77" alt="image" src="https://github.com/user-attachments/assets/f344697e-3cb6-4a68-9975-211c5cf4cc05" />
