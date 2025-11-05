@@ -51,7 +51,7 @@ WHERE client_count > (SELECT AVG(client_count) FROM (
     GROUP BY YogaStudioID
 ) avg_stats);
 ```
-![Uploading image.png…]()
+![photo_2025-11-05 08 39 35](https://github.com/user-attachments/assets/7d4262fa-ccc4-48bf-8080-c2ae0c204749)
 
 ### 2.2. Инструкторы с опытом выше среднего
 ```sql
@@ -66,9 +66,9 @@ FROM (
 ) instructor_exp
 WHERE ExperienceYears > (SELECT AVG(ExperienceYears) FROM Instructor);
 ```
-![Uploading image.png…]()
+<img width="356" height="137" alt="image" src="https://github.com/user-attachments/assets/16c12fa7-c22d-4396-be08-2acbaa641977" />
 
-### 2.3. Классы с заполняемостью выше 80%
+### 2.3. Классы с заполняемостью выше 60%
 ```sql
 SELECT *
 FROM (
@@ -78,8 +78,9 @@ FROM (
         ROUND((MaxCapacity * 0.8) / MaxCapacity * 100, 2) AS occupancy_rate
     FROM Class
 ) class_occupancy
-WHERE occupancy_rate > 80;
+WHERE occupancy_rate > 60;
 ```
+<img width="561" height="276" alt="image" src="https://github.com/user-attachments/assets/396a8e6f-82c1-43e1-8b1d-760f82774e16" />
 
 ## 3. WHERE
 
@@ -94,6 +95,7 @@ WHERE c.ClientID IN (
     HAVING AVG(Rating) > (SELECT AVG(Rating) FROM Review)
 );
 ```
+<img width="690" height="137" alt="image" src="https://github.com/user-attachments/assets/7d402196-fbd8-4a30-80f7-56bca5d58992" />
 
 ### 3.2. Инструкторы без классов
 ```sql
@@ -105,6 +107,7 @@ WHERE i.InstructorID NOT IN (
     WHERE InstructorID IS NOT NULL
 );
 ```
+<img width="656" height="127" alt="image" src="https://github.com/user-attachments/assets/acb581df-4e22-425d-b1ce-1fd15fa8a6c3" />
 
 ### 3.3. Студии без отзывов
 ```sql
@@ -116,6 +119,7 @@ WHERE ys.YogaStudioID NOT IN (
     JOIN Review r ON c.ClientID = r.ClientID
 );
 ```
+![Uploading tg_image_1832966036.png…]()
 
 ## 4. HAVING
 
