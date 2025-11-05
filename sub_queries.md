@@ -119,7 +119,7 @@ WHERE ys.YogaStudioID NOT IN (
     JOIN Review r ON c.ClientID = r.ClientID
 );
 ```
-![Uploading tg_image_1832966036.png…]()
+<img width="1610" height="152" alt="tg_image_1832966036" src="https://github.com/user-attachments/assets/923773a8-6bdf-453d-b1be-574157458240" />
 
 ## 4. HAVING
 
@@ -140,6 +140,7 @@ HAVING COUNT(c.ClassID) > (
     ) avg_classes
 );
 ```
+<img width="253" height="94" alt="image" src="https://github.com/user-attachments/assets/82cf8cca-e442-4bf0-aef4-e4164fdf493b" />
 
 ### 4.2. Клиенты с количеством отзывов больше 1
 ```sql
@@ -160,6 +161,7 @@ HAVING COUNT(r.ReviewID) > (
     ) client_reviews
 );
 ```
+<img width="425" height="113" alt="image" src="https://github.com/user-attachments/assets/c6b96770-4950-4559-a240-62c56985ff37" />
 
 ### 4.3. Типы членств с средней стоимостью выше общей средней
 ```sql
@@ -174,6 +176,7 @@ HAVING AVG(p.Amount) > (
     FROM Payment
 );
 ```
+<img width="264" height="78" alt="image" src="https://github.com/user-attachments/assets/7ca0d5db-aeeb-48ee-b77b-9f13a8e5c57a" />
 
 ## 5. ALL
 
@@ -188,6 +191,7 @@ WHERE c1.DateOfBirth < ALL (
     AND c2.ClientID != c1.ClientID
 );
 ```
+<img width="691" height="98" alt="image" src="https://github.com/user-attachments/assets/63ce79de-1d80-4020-8a25-378d26c906cd" />
 
 ### 5.2. Инструкторы с опытом больше всех в своей специализации
 ```sql
@@ -200,6 +204,7 @@ WHERE i1.ExperienceYears > ALL (
     AND i2.InstructorID != i1.InstructorID
 );
 ```
+<img width="652" height="104" alt="image" src="https://github.com/user-attachments/assets/d9cc80c2-694e-4d53-97be-84d3bb7b89cf" />
 
 ### 5.3. Классы с вместимостью больше всех в своей студии
 ```sql
@@ -217,6 +222,7 @@ WHERE c.MaxCapacity > ALL (
     AND c2.ClassID != c.ClassID
 );
 ```
+<img width="702" height="106" alt="image" src="https://github.com/user-attachments/assets/6823bfa3-4dc1-4d83-8fdf-c33f96f10b26" />
 
 ## 6. IN
 
@@ -231,6 +237,7 @@ WHERE YogaStudioID IN (
     HAVING COUNT(*) > 3
 );
 ```
+<img width="685" height="294" alt="image" src="https://github.com/user-attachments/assets/3a8e8e01-3f50-4348-84c7-008e3017406d" />
 
 ### 6.2. Классы инструкторов с опытом более 5 лет
 ```sql
@@ -242,6 +249,7 @@ WHERE InstructorID IN (
     WHERE ExperienceYears > 5
 );
 ```
+<img width="828" height="192" alt="image" src="https://github.com/user-attachments/assets/88c1bf06-50c7-4ef9-b53e-f89f4c18f220" />
 
 ### 6.3. Отзывы от клиентов с активными членствами
 ```sql
@@ -253,6 +261,7 @@ WHERE ClientID IN (
     WHERE Status = 'active' AND EndDate >= CURRENT_DATE
 );
 ```
+<img width="884" height="158" alt="image" src="https://github.com/user-attachments/assets/67a9a58d-3822-486f-9b0f-ab4ac7ecb364" />
 
 ## 7. ANY
 
