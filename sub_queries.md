@@ -11,6 +11,7 @@ SELECT
 FROM Instructor i
 JOIN Staff s ON i.StaffID = s.StaffID;
 ```
+<img width="322" height="228" alt="image" src="https://github.com/user-attachments/assets/f3f04b05-c162-4b51-bec6-b712303eca44" />
 
 ### 1.2. Средний рейтинг для каждого клиента
 ```sql
@@ -20,6 +21,7 @@ SELECT
     (SELECT AVG(Rating) FROM Review r WHERE r.ClientID = c.ClientID) AS avg_rating
 FROM Client c;
 ```
+<img width="378" height="304" alt="image" src="https://github.com/user-attachments/assets/29222c3b-d08f-47a3-8a89-3e242ae8c9a2" />
 
 ### 1.3. Количество клиентов в каждой студии
 ```sql
@@ -28,6 +30,7 @@ SELECT
     (SELECT COUNT(*) FROM Client cl WHERE cl.YogaStudioID = ys.YogaStudioID) AS client_count
 FROM YogaStudio ys;
 ```
+<img width="302" height="109" alt="image" src="https://github.com/user-attachments/assets/d53e2a36-9113-4481-849c-d72983bf0d77" />
 
 ## 2. FROM
 
@@ -48,6 +51,7 @@ WHERE client_count > (SELECT AVG(client_count) FROM (
     GROUP BY YogaStudioID
 ) avg_stats);
 ```
+![Uploading image.png…]()
 
 ### 2.2. Инструкторы с опытом выше среднего
 ```sql
@@ -62,6 +66,7 @@ FROM (
 ) instructor_exp
 WHERE ExperienceYears > (SELECT AVG(ExperienceYears) FROM Instructor);
 ```
+![Uploading image.png…]()
 
 ### 2.3. Классы с заполняемостью выше 80%
 ```sql
