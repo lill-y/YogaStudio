@@ -1,4 +1,5 @@
 1. CTE - Common Table Expressions
+   
 1.1. CTE для анализа клиентов по студиям
 ```sql
 WITH StudioClients AS (
