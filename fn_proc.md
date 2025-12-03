@@ -83,9 +83,12 @@ WHERE routine_type = 'PROCEDURE'
 AND specific_schema = 'public'
 ORDER BY routine_name;
 ```
+<img width="863" height="745" alt="image" src="https://github.com/user-attachments/assets/68d2c5cd-ba47-4c0c-8b15-5ba0da2a3205" />
+
 ## Функции
+
 1. Функция расчета среднего рейтинга клиента
-sql
+```sql
 CREATE OR REPLACE FUNCTION get_client_avg_rating(p_client_id INT)
 RETURNS DECIMAL(3,2)
 LANGUAGE plpgsql
@@ -241,6 +244,9 @@ WHERE routine_type = 'FUNCTION'
 AND specific_schema = 'public'
 ORDER BY routine_name;
 ```
+<img width="1169" height="762" alt="image" src="https://github.com/user-attachments/assets/1ac5e46c-f798-47ef-880b-d9cf37b1ef5f" />
+<img width="1157" height="768" alt="image" src="https://github.com/user-attachments/assets/123dd927-e574-473c-ae00-904cfe71b339" />
+
 ## Блок DO
 1. DO блок для массового обновления
 ```sql
