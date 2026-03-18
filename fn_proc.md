@@ -8,6 +8,7 @@ CREATE OR REPLACE PROCEDURE add_new_client(
     p_phone VARCHAR(20),
     p_studio_id INT
 )
+![telegram-cloud-photo-size-2-5301260241079048681-y](https://github.com/user-attachments/assets/6724638c-5e5a-42ff-a717-f29d5a8f44b6)
 LANGUAGE plpgsql
 AS $$
 BEGIN
