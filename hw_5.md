@@ -5,7 +5,7 @@
 SELECT 'CURRENT WAL POSITION' as stage, 
        pg_current_wal_insert_lsn() as lsn_before;
 ```
-
+<img width="261" height="62" alt="image" src="https://github.com/user-attachments/assets/06d8ebc7-6bd5-47b7-a7f9-1883b7a8d65c" />
 Добавляем данные:
 ```sql
 INSERT INTO client (full_name, phone_number, email, driver_license)
@@ -22,6 +22,7 @@ VALUES (
 SELECT 'AFTER INSERT' as stage,
        pg_current_wal_insert_lsn() as lsn_after;
 ```
+<img width="236" height="60" alt="image" src="https://github.com/user-attachments/assets/05a4150e-7715-4f96-a2ec-76cca6a5ca8f" />
 
 ### b. Сравнение WAL до и после commit
 До commit:
@@ -32,7 +33,8 @@ SELECT
     pg_walfile_name(pg_current_wal_insert_lsn()) as wal_файл,
     pg_size_pretty((pg_current_wal_insert_lsn() - '0/0'::pg_lsn)::bigint) as всего_wal
 ```
-![Скриншот](img3/1.3.png)
+<img width="377" height="65" alt="image" src="https://github.com/user-attachments/assets/592835d6-dafc-4f7f-b086-8d03d55fe4e9" />
+
 
 Транзакция:
 ```sql
@@ -55,9 +57,9 @@ SELECT
     pg_walfile_name(pg_current_wal_insert_lsn()) as wal_файл,
     pg_size_pretty((pg_current_wal_insert_lsn() - '0/0'::pg_lsn)::bigint) as всего_wal
 ```
+<img width="464" height="63" alt="image" src="https://github.com/user-attachments/assets/7686f6bd-6f8b-42e7-aa29-389e37ad56ba" />
 
-
-**Вывод:** Зафиксированы значения LSN до и после выполнения COMMIT: до COMMIT — 1/D6210968, после COMMIT — 1/D6214388. Разница составила 13 344 байта. При этом WAL файл остался тем же — 0000000100000001000000D6, а общий размер WAL (7522 MB) визуально не изменился из-за незначительности добавленного объема. Полученная разница включает как данные самой операции INSERT, так и служебные записи COMMIT. Механизм WAL обеспечивает надежность транзакций с минимальными накладными расходами — COMMIT добавляет лишь небольшую служебную информацию в журнал, не требуя создания нового WAL файла.
+**Вывод:** Зафиксированы значения LSN до и после выполнения COMMIT: Разница составила 13 344 байта. При этом WAL файл остался тем же — 0000000100000001000000D6, а общий размер WAL визуально не изменился из-за незначительности добавленного объема. Полученная разница включает как данные самой операции INSERT, так и служебные записи COMMIT. Механизм WAL обеспечивает надежность транзакций с минимальными накладными расходами — COMMIT добавляет лишь небольшую служебную информацию в журнал, не требуя создания нового WAL файла.
 
 ### c. Анализ WAL размера после массовой операции
 Создаем новую тестовую таблицу:
@@ -75,7 +77,7 @@ SELECT
     'Размер таблицы' as параметр,
     pg_size_pretty(pg_relation_size('wal_test')) as размер;
 ```
-
+<img width="207" height="61" alt="image" src="https://github.com/user-attachments/assets/4877fce5-404c-465a-b53d-45cdb7f9fb05" />
 
 До массовой вставки данных следующие значения:
 ```sql
@@ -86,7 +88,7 @@ SELECT
     (SELECT count(*) FROM pg_ls_waldir()) as files_count,
     (SELECT pg_size_pretty(sum(size)) FROM pg_ls_waldir()) as total_wal_size;
 ```
-
+<img width="665" height="55" alt="image" src="https://github.com/user-attachments/assets/af024f81-28f3-45d3-902b-4140fda57db8" />
 
 Вставляем данные:
 ```sql
@@ -125,7 +127,7 @@ BEGIN
     RAISE NOTICE 'WAL сгенерировано: % KB', round(bytes_generated / 1024.0, 2);
 END $$;
 ```
-
+<img width="308" height="98" alt="image" src="https://github.com/user-attachments/assets/23804703-1b2f-4f04-beda-301dab451592" />
 
 После массовой вставки данных:
 ```sql
@@ -136,7 +138,7 @@ SELECT
     (SELECT count(*) FROM pg_ls_waldir()) as files_count,
     (SELECT pg_size_pretty(sum(size)) FROM pg_ls_waldir()) as total_wal_size;
 ```
-
+<img width="655" height="61" alt="image" src="https://github.com/user-attachments/assets/3e91f051-078a-4831-8b1d-b9f13323d801" />
 
 Размер таблицы теперь:
 ```sql
@@ -145,7 +147,7 @@ SELECT
     pg_size_pretty(pg_relation_size('wal_test')) as размер,
     pg_size_pretty(pg_total_relation_size('wal_test')) as полный_размер_с_индексами;
 ```
-
+<img width="386" height="61" alt="image" src="https://github.com/user-attachments/assets/9a558ed0-8a3c-4779-940e-f8d581a331f3" />
 
 **Вывод:** Зафиксированы следующие результаты: LSN до операции — 1/D6244E00, LSN после операции — 1/D6400A10, разница составила 1 775.02 KB сгенерированного WAL. Количество WAL файлов и общий размер WAL (400 MB) визуально не изменились, так как прирост в 1.77 MB незначителен на фоне общего объема.
   
