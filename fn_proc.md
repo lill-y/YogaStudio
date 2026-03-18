@@ -1,6 +1,8 @@
 # Хранимые процедуры и функции
 ## Процедуры
 1. Процедура добавления нового клиента
+   ![telegram-cloud-photo-size-2-5301260241079048681-y](https://github.com/user-attachments/assets/6724638c-5e5a-42ff-a717-f29d5a8f44b6)
+LANGUAGE plpgsql
 ```sql
 CREATE OR REPLACE PROCEDURE add_new_client(
     p_firstname VARCHAR(50),
