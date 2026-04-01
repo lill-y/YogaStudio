@@ -7,6 +7,8 @@ FROM store_checks
 WHERE shop_id = 77
   AND sold_at >= TIMESTAMP '2025-02-14 00:00:00'
   AND sold_at < TIMESTAMP '2025-02-15 00:00:00';
+  <img width="1121" height="188" alt="image" src="https://github.com/user-attachments/assets/7ceaafde-cfae-4f76-8679-972504bc4943" />
+
 забыла изначальный скрин сделать :(
 ### 2
 Тип сканирования: Seq Scan
