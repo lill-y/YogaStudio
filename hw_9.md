@@ -7,12 +7,19 @@
 
 <img width="518" height="124" alt="telegram-cloud-photo-size-2-5217763637303384732-x" src="https://github.com/user-attachments/assets/05b32778-a423-415d-bf8e-15b9df8ecc79" />
 
+<img width="908" height="270" alt="telegram-cloud-photo-size-2-5217763637303384735-y" src="https://github.com/user-attachments/assets/b3637e0f-c15c-4296-955f-48fb2159629b" />
 
+<img width="926" height="128" alt="telegram-cloud-photo-size-2-5217763637303384736-y" src="https://github.com/user-attachments/assets/18c7c767-6785-4aea-a931-e1aa073ed03c" />
+
+<img width="896" height="132" alt="telegram-cloud-photo-size-2-5217763637303384738-y" src="https://github.com/user-attachments/assets/b17769e4-1de5-443e-99c5-7ce4b518d5ac" />
 
 ## 2. Настроить потоковую репликацию
 Изменила **docker-compose.yml** и запустила контейнеры:
+<img width="301" height="89" alt="image" src="https://github.com/user-attachments/assets/22363805-c8c7-4bf1-9e9f-475bef43a3be" />
 
+<img width="350" height="101" alt="image" src="https://github.com/user-attachments/assets/2f31a5ed-e00c-4520-a0cf-3ec26c3bc786" />
 
+<img width="543" height="92" alt="image" src="https://github.com/user-attachments/assets/da1e5bf6-fcbf-401e-a7f7-310c439d1fa3" />
 
 Создала пользователя репликации:
 ```sql
