@@ -33,6 +33,24 @@ docker exec -it autoservice-postgres bash -c "
 "
 ```
 
+<img width="261" height="62" alt="image" src="https://github.com/user-attachments/assets/06d8ebc7-6bd5-47b7-a7f9-1883b7a8d65c" />
+
+<img width="236" height="60" alt="image" src="https://github.com/user-attachments/assets/05a4150e-7715-4f96-a2ec-76cca6a5ca8f" />
+
+<img width="377" height="65" alt="image" src="https://github.com/user-attachments/assets/592835d6-dafc-4f7f-b086-8d03d55fe4e9" />
+
+<img width="464" height="63" alt="image" src="https://github.com/user-attachments/assets/7686f6bd-6f8b-42e7-aa29-389e37ad56ba" />
+
+<img width="207" height="61" alt="image" src="https://github.com/user-attachments/assets/4877fce5-404c-465a-b53d-45cdb7f9fb05" />
+
+<img width="665" height="55" alt="image" src="https://github.com/user-attachments/assets/af024f81-28f3-45d3-902b-4140fda57db8" />
+
+<img width="308" height="98" alt="image" src="https://github.com/user-attachments/assets/23804703-1b2f-4f04-beda-301dab451592" />
+
+<img width="655" height="61" alt="image" src="https://github.com/user-attachments/assets/3e91f051-078a-4831-8b1d-b9f13323d801" />
+
+<img width="386" height="61" alt="image" src="https://github.com/user-attachments/assets/9a558ed0-8a3c-4779-940e-f8d581a331f3" />
+
 Инициализация реплики и выполнение pg_basebackup:
 ```
 docker exec -it pg-replica1 pg_basebackup `
