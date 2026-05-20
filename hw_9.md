@@ -3,7 +3,12 @@
 
   <img width="908" height="190" alt="telegram-cloud-photo-size-2-5217763637303384730-y" src="https://github.com/user-attachments/assets/64531900-84ad-4888-9ab5-3f87cc48311b" />
 
-  
+  <img width="926" height="180" alt="telegram-cloud-photo-size-2-5217763637303384731-y" src="https://github.com/user-attachments/assets/83b5d9ae-6d5f-49c2-87e2-42e7b6459a81" />
+
+<img width="518" height="124" alt="telegram-cloud-photo-size-2-5217763637303384732-x" src="https://github.com/user-attachments/assets/05b32778-a423-415d-bf8e-15b9df8ecc79" />
+
+
+
 ## 2. Настроить потоковую репликацию
 Изменила **docker-compose.yml** и запустила контейнеры:
 
