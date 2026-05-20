@@ -1,7 +1,8 @@
 ## 1. Нарисовать архитектуру
 
 
-  
+  <img width="908" height="190" alt="telegram-cloud-photo-size-2-5217763637303384730-y" src="https://github.com/user-attachments/assets/64531900-84ad-4888-9ab5-3f87cc48311b" />
+
   
 ## 2. Настроить потоковую репликацию
 Изменила **docker-compose.yml** и запустила контейнеры:
