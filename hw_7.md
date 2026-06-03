@@ -132,7 +132,8 @@ CREATE INDEX idx_student_course_hash_student
 ON student_course_hash(student_id);
 
 CREATE INDEX idx_student_course_hash_date
-ON student_course_hash(enroll_date);```
+ON student_course_hash(enroll_date);
+```
 ### Анализ запросов:
 ```
 EXPLAIN (ANALYZE, BUFFERS)
@@ -141,6 +142,7 @@ FROM student_course_range
 WHERE enroll_date BETWEEN '2026-01-15' AND '2026-02-20';
 ```
 
+<img width="851" height="217" alt="image" src="https://github.com/user-attachments/assets/d2bcbada-0d40-4876-aead-3ed434dbbad9" />
 
 
 
@@ -160,6 +162,7 @@ FROM student_course_list
 WHERE course_status = 'завершен';
 ```
 
+<img width="850" height="147" alt="image" src="https://github.com/user-attachments/assets/8cd6e420-1429-408a-9f15-47d0e884aa23" />
 
 
 
@@ -177,6 +180,7 @@ SELECT *
 FROM student_course_hash
 WHERE student_id = 103;
 ```
+<img width="852" height="179" alt="image" src="https://github.com/user-attachments/assets/5292c5e1-25b1-4079-96c9-77a72e1810d5" />
 
 
 
@@ -218,6 +222,8 @@ FROM pg_class
 WHERE relname LIKE 'lesson_archive%';
 ```
 
+<img width="852" height="115" alt="image" src="https://github.com/user-attachments/assets/ccbabde9-4f96-4eac-b45e-a8f1fc56be94" />
+<img width="199" height="57" alt="image" src="https://github.com/user-attachments/assets/d79f0df3-6b14-4a51-8689-fbfcf45178c3" />
 
 
 
@@ -270,6 +276,7 @@ SELECT '2026_03', COUNT(*) FROM test_partition_2026_03
 UNION ALL
 SELECT 'DEFAULT', COUNT(*) FROM test_partition_default;
 ```
+<img width="228" height="215" alt="image" src="https://github.com/user-attachments/assets/933bba2f-7174-4de3-bb8c-63bd193ecc1b" />
 
 
 ###  publish_via_partition_root = false (по умолчанию)
@@ -290,6 +297,7 @@ FROM pg_publication p
 JOIN pg_publication_tables pt ON p.pubname = pt.pubname;
 ```
 
+<img width="612" height="203" alt="image" src="https://github.com/user-attachments/assets/b3951e27-00e9-45f3-8ce2-b82172c1f76c" />
 
 
 
@@ -307,8 +315,10 @@ SELECT pubname, puballtables FROM pg_publication;
 ```
 
 
+<img width="377" height="129" alt="image" src="https://github.com/user-attachments/assets/a24c5844-348a-4c80-9d47-f69f8a55c721" />
 
 
+<img width="353" height="181" alt="image" src="https://github.com/user-attachments/assets/71a7a8b8-1fc8-4515-af3f-6de8a659ca84" />
 
 
 
@@ -349,6 +359,7 @@ CREATE SERVER edu_shard2_server
 FOREIGN DATA WRAPPER postgres_fdw
 OPTIONS (host 'education-postgres', port '5432', dbname 'education');
 ```
+<img width="390" height="109" alt="image" src="https://github.com/user-attachments/assets/ede91bee-d286-421a-b28c-c4d40deb4fdb" />
 
 
 ``` sql
@@ -406,6 +417,9 @@ FROM payment_router;
 ```
 
 ## Результат
+<img width="145" height="106" alt="image" src="https://github.com/user-attachments/assets/6123a54a-2f37-4f61-a0c0-191911245cf7" />
+
+<img width="117" height="102" alt="image" src="https://github.com/user-attachments/assets/40928d7c-2feb-4569-a0b1-d7c9954a6c8b" />
 
 Сканируются оба шарда.
 
@@ -417,6 +431,7 @@ FROM payment_router
 WHERE shard_key = 0;
 ```
 ## Результат
+<img width="851" height="138" alt="image" src="https://github.com/user-attachments/assets/db9397be-48d0-4724-bb3b-2c98d9bdff7a" />
 
 Работает только один шард благодаря partition pruning.
 
@@ -428,6 +443,7 @@ FROM payment_router
 WHERE shard_key IN (1, 2);
 ```
 ##Результат
+<img width="847" height="154" alt="image" src="https://github.com/user-attachments/assets/735697ba-6908-45de-8e18-dcaaf9fc9921" />
 
 Сканируются два шарда.
 
@@ -439,6 +455,7 @@ FROM payment_router
 WHERE student_id = 100;
 ```
 ## Результат
+<img width="832" height="126" alt="image" src="https://github.com/user-attachments/assets/3fc41a5b-18f8-4a0b-8048-0fd1004ad7b5" />
 
 PostgreSQL не может определить нужный шард заранее, поэтому выполняется сканирование всех шардов.
 
