@@ -1,5 +1,6 @@
 ## 1. Нарисовать архитектуру
 
+<img width="678" height="466" alt="image" src="https://github.com/user-attachments/assets/91377356-6d04-4975-b3fe-bc587d789609" />
 
   
   
@@ -46,7 +47,9 @@ SELECT
 FROM pg_stat_replication;
 ```
 
+![Uploading image.png…]()
 
+![Uploading image.png…]()
 
 Статус **streaming** подтверждает успешную настройку физической репликации
 
