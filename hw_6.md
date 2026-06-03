@@ -47,9 +47,7 @@ SELECT
 FROM pg_stat_replication;
 ```
 
-![Uploading image.png…]()
 
-![Uploading image.png…]()
 
 Статус **streaming** подтверждает успешную настройку физической репликации
 
@@ -66,6 +64,7 @@ VALUES ('Test Physical Replication', '+79991234567');
 SELECT * FROM client WHERE full_name = 'Test Physical Replication';
 ```
 
+<img width="465" height="60" alt="image" src="https://github.com/user-attachments/assets/dfc42c32-f3d0-46bc-979c-4690bad8bb3b" />
 
 
 ### Что произойдет если попробовать вставить данные на реплике
